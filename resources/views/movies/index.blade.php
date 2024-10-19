@@ -25,7 +25,7 @@
                         </div>
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
-                                <a href="/"
+                                <a href="/home"
                                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Home</a>
                                 <a href="/movies"
                                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Movie</a>
@@ -47,23 +47,23 @@
                     <div class="mb-4">
                         <a href="{{ route('movies.create') }}"
                             class="inline-block px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200">
-                            TAMBAH TIKET FILM
+                            Tambah Film
                         </a>
                     </div>
 
                     <div class="overflow-x-auto">
                         <table class="w-full text-white">
-                            <thead class="bg-black/40">
+                            <thead class="bg-black">
                                 <tr>
-                                    <th class="px-4 py-3 text-left">POSTER</th>
-                                    <th class="px-4 py-3 text-left">JUDUL FILM</th>
-                                    <th class="px-4 py-3 text-left">DESKRIPSI</th>
-                                    <th class="px-4 py-3 text-left">GENRE</th>
-                                    <th class="px-4 py-3 text-left">TANGGAL RILIS</th>
-                                    <th class="px-4 py-3 text-left">WAKTU TAYANG</th>
-                                    <th class="px-4 py-3 text-left">HARGA</th>
-                                    <th class="px-4 py-3 text-left">KURSI TERSISA</th>
-                                    <th class="px-4 py-3 text-center">AKSI</th>
+                                    <th class="px-4 py-3 text-center">Poster</th>
+                                    <th class="px-4 py-3 text-center">Judul Film</th>
+                                    <th class="px-4 py-3 text-center">Deskripsi</th>
+                                    <th class="px-4 py-3 text-center">Genre</th>
+                                    <th class="px-4 py-3 text-center">Tanggal Rilis</th>
+                                    <th class="px-4 py-3 text-center">Waktu Tayang</th>
+                                    <th class="px-4 py-3 text-center">Harga</th>
+                                    <th class="px-4 py-3 text-center">Kursi Tersisa</th>
+                                    <th class="px-4 py-3 text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-700">
@@ -73,15 +73,16 @@
                                             <img src="{{ asset('/storage/movies/' . $ticket->poster) }}"
                                                 class="rounded-lg w-32">
                                         </td>
-                                        <td class="px-4 py-3">{{ $ticket->movie_title }}</td>
-                                        <td class="px-4 py-3">{{ $ticket->description }}</td>
-                                        <td class="px-4 py-3">{{ $ticket->genre }}</td>
-                                        <td class="px-4 py-3">{{ $ticket->release_date }}</td>
-                                        <td class="px-4 py-3">{{ $ticket->show_time }}</td>
-                                        <td class="px-4 py-3">{{ 'Rp ' . number_format($ticket->price, 2, ',', '.') }}
+                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->movie_title }}</td>
+                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->description }}</td>
+                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->genre }}</td>
+                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->release_date }}</td>
+                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->show_time }}</td>
+                                        <td class="px-4 py-3 text-center text-xs">
+                                            {{ 'Rp ' . number_format($ticket->price, 2, ',', '.') }}
                                         </td>
-                                        <td class="px-4 py-3">{{ $ticket->available_seats }}</td>
-                                        <td class="px-4 py-3 text-center">
+                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->available_seats }}</td>
+                                        <td class="px-4 py-3 text-center text-xs">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                                 action="{{ route('movies.destroy', $ticket->id) }}" method="POST">
                                                 <a href="{{ route('movies.show', $ticket->id) }}"
@@ -97,7 +98,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="9" class="px-4 py-3 text-center">
+                                        <td colspan="9" class="px-4 py-3 text-center text-xs">
                                             <div class="bg-red-500/20 text-red-200 p-3 rounded-lg">
                                                 Data Film tayang belum Tersedia.
                                             </div>

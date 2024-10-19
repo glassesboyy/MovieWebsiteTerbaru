@@ -24,18 +24,24 @@
                         </div>
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
-                                <a href="#"
+                                <a href="/"
                                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Home</a>
-                                <a href="/movies"
-                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Movie</a>
+                                @auth
+                                    <a href="/movies"
+                                        class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Movie</a>
+                                @endauth
                             </div>
                         </div>
                     </div>
-
-                    <!-- Tambahkan bagian logout di navbar -->
                     <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            @if (Auth::check())
+                        <div class="ml-4 flex items-center md:ml-6">
+                            @guest
+                                <button type="button"
+                                    class="mx-1 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-md text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Login</button>
+                                <button type="button"
+                                    class="mx-1 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Register</button>
+                            @endguest
+                            @auth
                                 <form action="{{ route('logout') }}" method="POST" class="inline">
                                     @csrf
                                     <button type="submit"
@@ -43,7 +49,7 @@
                                         Logout
                                     </button>
                                 </form>
-                            @endif
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -51,6 +57,31 @@
         </nav>
 
         <main class="bg-gradient-to-b from-black to-purple-700">
+            @guest
+                <div id="ask-banner"
+                    class="fixed z-50 flex flex-col md:flex-row justify-between w-[calc(100%-2rem)] p-3 -translate-x-1/2 backdrop-blur-sm bg-white/30 rounded-lg lg:max-w-6xl left-1/2 top-3 shadow-lg">
+                    <div class="flex flex-col items-start mb-3 me-4 md:items-center md:flex-row md:mb-0">
+                        <p class="flex items-center text-sm font-normal text-white">Lakukan login atau
+                            register terlebih dahulu untuk melakukan pemesanan ticket film!</p>
+                    </div>
+                    <div class="flex items-center flex-shrink-0">
+                        <button type="button"
+                            class="mx-1 focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-md text-sm px-5 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Login</button>
+                        <button type="button"
+                            class="mx-1 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2 me-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Register</button>
+                        <button data-dismiss-target="#ask-banner" type="button"
+                            class="flex-shrink-0 inline-flex justify-center w-7 h-7 items-center text-black hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close banner</span>
+                        </button>
+                    </div>
+                </div>
+            @endguest
+
             <!-- Carousel Section -->
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 <div id="controls-carousel" class="relative w-full" data-carousel="static">
@@ -98,7 +129,7 @@
                         </button>
                     </div>
                 </div>
-                <!-- Carousel Section End -->
+
                 <!-- Movie Card Section -->
                 <div
                     class="w-full max-w-sm mt-10 mb-10 mx-auto bg-black rounded-lg backdrop-blur-sm bg-black/20 shadow dark:bg-gray-800 dark:border-gray-700  hover:-translate-y-3 duration-300">
@@ -112,17 +143,18 @@
                         </a>
                         <div class="flex items-center justify-between">
                             <span class="text-xl font-bold text-white dark:text-white">Rp. 200.000</span>
-                            <div class="flex items-center justify-between mt-5">
-                                <a href="#"
-                                    class="m-1 text-white backdrop-blur-md bg-black/30 hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Booking</a>
-                                <a href="#"
-                                    class="m-1 text-white backdrop-blur-md bg-black/30 hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Detail</a>
-                            </div>
+                            @auth
+                                <div class="flex items-center justify-between mt-5">
+                                    <a href="#"
+                                        class="m-1 text-white backdrop-blur-md bg-black/30 hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Booking</a>
+                                    <a href="#"
+                                        class="m-1 text-white backdrop-blur-md bg-black/30 hover:bg-black focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Detail</a>
+                                </div>
+                            @endauth
                         </div>
-
                     </div>
                 </div>
-                <!-- Movie Card Section End -->
+
                 <!-- Footer Section -->
                 <footer class="backdrop-blur bg-black/30 rounded-lg shadow dark:bg-gray-800 sticky bottom-0">
                     <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
@@ -145,7 +177,7 @@
                         </ul>
                     </div>
                 </footer>
-                <!-- Footer Section End -->
+            </div>
         </main>
     </div>
 </body>
