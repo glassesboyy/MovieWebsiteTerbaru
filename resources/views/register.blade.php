@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>Register</title>
+    <title>Register - MovieZul</title>
 </head>
 
 <body>
+    @include('partials.navbar')
     <div class="w-full h-screen bg-gradient-to-b from-black to-purple-700 flex justify-center items-center">
         <div class="w-1/3 bg-white p-10 rounded-xl ">
             <h1 class="text-3xl font-bold mb-5 text-center">Register</h1>

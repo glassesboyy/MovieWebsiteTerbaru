@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data Tiket Film</title>
+    <title>Data Movie - MovieZul</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -13,41 +13,20 @@
 
 <body class="h-full">
     <div class="min-h-full">
-        <!-- Menggunakan nav yang sama seperti template sebelumnya -->
-        <nav class="bg-black py-3">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex h-16 items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-8 w-8"
-                                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-                                alt="Your Company">
-                        </div>
-                        <div class="hidden md:block">
-                            <div class="ml-10 flex items-baseline space-x-4">
-                                <a href="/home"
-                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Home</a>
-                                <a href="/movies"
-                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Movie</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        @include('partials.navbar')
 
         <main class="bg-gradient-to-b from-black to-purple-700 min-h-screen py-10">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-black/30 backdrop-blur-sm rounded-lg shadow-lg p-6">
                     <div class="mb-6">
-                        <h3 class="text-2xl font-bold text-center text-white mb-4">Data Film Tayang</h3>
+                        <h3 class="text-2xl font-bold text-center text-white mb-4">Movie Data Showing</h3>
                         <hr class="border-gray-600">
                     </div>
 
                     <div class="mb-4">
                         <a href="{{ route('movies.create') }}"
                             class="inline-block px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200">
-                            Tambah Film
+                            Add Movie
                         </a>
                     </div>
 
@@ -56,14 +35,14 @@
                             <thead class="bg-black">
                                 <tr>
                                     <th class="px-4 py-3 text-center">Poster</th>
-                                    <th class="px-4 py-3 text-center">Judul Film</th>
-                                    <th class="px-4 py-3 text-center">Deskripsi</th>
+                                    <th class="px-4 py-3 text-center">Movie Title</th>
+                                    <th class="px-4 py-3 text-center">Description</th>
                                     <th class="px-4 py-3 text-center">Genre</th>
-                                    <th class="px-4 py-3 text-center">Tanggal Rilis</th>
-                                    <th class="px-4 py-3 text-center">Waktu Tayang</th>
-                                    <th class="px-4 py-3 text-center">Harga</th>
-                                    <th class="px-4 py-3 text-center">Kursi Tersisa</th>
-                                    <th class="px-4 py-3 text-center">Aksi</th>
+                                    <th class="px-4 py-3 text-center">Release Date</th>
+                                    <th class="px-4 py-3 text-center">Show Time</th>
+                                    <th class="px-4 py-3 text-center">Ticket Price</th>
+                                    <th class="px-4 py-3 text-center">Available Seats</th>
+                                    <th class="px-4 py-3 text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-700">
@@ -86,13 +65,13 @@
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                                 action="{{ route('movies.destroy', $ticket->id) }}" method="POST">
                                                 <a href="{{ route('movies.show', $ticket->id) }}"
-                                                    class="inline-block px-3 py-1 bg-gray-800 text-white rounded hover:bg-gray-700 mb-1">LIHAT</a>
+                                                    class="inline-block px-3 py-1 bg-gray-800 text-white rounded hover:bg-gray-700 mb-1">Show</a>
                                                 <a href="{{ route('movies.edit', $ticket->id) }}"
-                                                    class="inline-block px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 mb-1">EDIT</a>
+                                                    class="inline-block px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 mb-1">Edit</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">HAPUS</button>
+                                                    class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -100,7 +79,7 @@
                                     <tr>
                                         <td colspan="9" class="px-4 py-3 text-center text-xs">
                                             <div class="bg-red-500/20 text-red-200 p-3 rounded-lg">
-                                                Data Film tayang belum Tersedia.
+                                                Movie data is not yet available.
                                             </div>
                                         </td>
                                     </tr>
@@ -118,7 +97,6 @@
     </div>
 
     <script>
-        // Pesan dengan sweetalert
         @if (session('success'))
             Swal.fire({
                 icon: "success",

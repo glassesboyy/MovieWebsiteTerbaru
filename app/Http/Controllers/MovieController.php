@@ -17,6 +17,8 @@ use Illuminate\Http\RedirectResponse;
 //import Facades Storage
 use Illuminate\Support\Facades\Storage;
 
+use App\Http\Controllers\CustomerController;
+
 class MovieController extends Controller
 {
     /**
@@ -26,10 +28,8 @@ class MovieController extends Controller
      */
     public function index() : View
     {
-        // Mendapatkan semua data film dari database
         $movies = MovieTicket::latest()->paginate(10);
 
-        // Mengembalikan view dengan data film yang telah diambil
         return view('movies.index', compact('movies'));
     }
 
@@ -40,7 +40,6 @@ class MovieController extends Controller
      */
     public function create(): View
     {
-        // Mengembalikan view untuk form penambahan film
         return view('movies.create');
     }
 
@@ -56,7 +55,7 @@ class MovieController extends Controller
         $request->validate([
             'poster'        => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'movie_title'   => 'required|min:5',
-            'description'   => 'nullable|min:10', // Deskripsi opsional
+            'description'   => 'nullable|min:10',
             'genre'         => 'nullable|min:3',
             'release_date'  => 'required|date',
             'show_time'     => 'required|date_format:H:i',

@@ -1,15 +1,8 @@
 <?php
-
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MovieController;
-use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
 
 // Route untuk halaman utama (dapat diakses semua user)
 Route::get('/', function () {
@@ -43,13 +36,14 @@ Route::middleware('auth')->group(function () {
     // Route untuk menampilkan film
     Route::get('/movies/{id}/show', [MovieController::class, 'show'])->name('movies.show');
 
-    // Route untuk booking film (jika diperlukan)
+    // Route untuk booking film
     Route::get('/movies/{id}/booking', [MovieController::class, 'booking'])->name('movies.booking');
+
+    // Route CRUD Customer
+    Route::resource('/customers', CustomerController::class);
 });
 
-Route::resource('/customers', \App\Http\Controllers\CustomersController::class);
-
-// Route Error 404 (Optional)
+// Route Error 404
 Route::fallback(function () {
     return view('errors.404');
 });

@@ -11,6 +11,7 @@
 </head>
 
 <body class="h-full">
+    @include('partials.navbar')
     <div class="min-h-full">
         <main class="bg-gradient-to-b from-black to-purple-700 min-h-screen py-10">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,7 +25,7 @@
                             @method('PUT')
 
                             <div class="mb-4">
-                                <label class="block text-white font-medium mb-2">POSTER</label>
+                                <label class="block text-white font-medium mb-2">Poster</label>
                                 <input type="file"
                                     class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 @error('poster') border-red-500 @enderror"
                                     name="poster">
@@ -34,7 +35,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="block text-white font-medium mb-2">JUDUL FILM</label>
+                                <label class="block text-white font-medium mb-2">Movie Title</label>
                                 <input type="text"
                                     class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 @error('movie_title') border-red-500 @enderror"
                                     name="movie_title" value="{{ old('movie_title', $movie->movie_title) }}"
@@ -45,7 +46,7 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="block text-white font-medium mb-2">DESKRIPSI</label>
+                                <label class="block text-white font-medium mb-2">Description</label>
                                 <textarea
                                     class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 @error('description') border-red-500 @enderror"
                                     name="description" rows="5" placeholder="Masukkan Deskripsi Film">{{ old('description', $movie->description) }}</textarea>
@@ -56,7 +57,7 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-white font-medium mb-2">GENRE</label>
+                                    <label class="block text-white font-medium mb-2">Genre</label>
                                     <input type="text"
                                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 @error('genre') border-red-500 @enderror"
                                         name="genre" value="{{ old('genre', $movie->genre) }}"
@@ -67,7 +68,7 @@
                                 </div>
 
                                 <div>
-                                    <label class="block text-white font-medium mb-2">TANGGAL RILIS</label>
+                                    <label class="block text-white font-medium mb-2">Release Date</label>
                                     <input type="date"
                                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 @error('release_date') border-red-500 @enderror"
                                         name="release_date" value="{{ old('release_date', $movie->release_date) }}">
@@ -79,7 +80,7 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                 <div>
-                                    <label class="block text-white font-medium mb-2">WAKTU TAYANG</label>
+                                    <label class="block text-white font-medium mb-2">Show Time</label>
                                     <input type="time"
                                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 @error('show_time') border-red-500 @enderror"
                                         name="show_time" value="{{ old('show_time', $movie->show_time) }}">
@@ -89,7 +90,7 @@
                                 </div>
 
                                 <div>
-                                    <label class="block text-white font-medium mb-2">HARGA</label>
+                                    <label class="block text-white font-medium mb-2">Ticket Price</label>
                                     <input type="number"
                                         class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 @error('price') border-red-500 @enderror"
                                         name="price" value="{{ old('price', $movie->price) }}"
@@ -101,7 +102,7 @@
                             </div>
 
                             <div class="mt-4">
-                                <label class="block text-white font-medium mb-2">KURSI TERSEDIA</label>
+                                <label class="block text-white font-medium mb-2">Available Seats</label>
                                 <input type="number"
                                     class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 @error('available_seats') border-red-500 @enderror"
                                     name="available_seats"
@@ -114,9 +115,9 @@
 
                             <div class="mt-6 flex justify-end space-x-3">
                                 <button type="reset"
-                                    class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors duration-200">RESET</button>
+                                    class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors duration-200">Reset</button>
                                 <button type="submit"
-                                    class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200">UPDATE</button>
+                                    class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200">Update</button>
                             </div>
                         </form>
                     </div>
