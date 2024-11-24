@@ -17,13 +17,13 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-3xl mx-auto">
                     <div class="bg-black/30 backdrop-blur-sm rounded-lg shadow-lg p-6">
-                        <h3 class="text-2xl font-bold text-center text-white mb-6">Add New Customer</h3>
+                        <h3 class="text-2xl font-bold text-center text-white mb-6">Book Movie</h3>
 
                         <form action="{{ route('customers.store') }}" method="POST">
                             @csrf
 
                             <div class="mb-4">
-                                <label class="block text-white font-medium mb-2">Customer Name</label>
+                                <label class="block text-white font-medium mb-2">Name</label>
                                 <input type="text"
                                     class="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500 @error('customer_name') border-red-500 @enderror"
                                     name="customer_name" value="{{ old('customer_name') }}"

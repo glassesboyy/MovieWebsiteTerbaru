@@ -30,67 +30,21 @@
                         </a>
                     </div>
 
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-white">
-                            <thead class="bg-black">
-                                <tr>
-                                    <th class="px-4 py-3 text-center">Poster</th>
-                                    <th class="px-4 py-3 text-center">Movie Title</th>
-                                    <th class="px-4 py-3 text-center">Description</th>
-                                    <th class="px-4 py-3 text-center">Genre</th>
-                                    <th class="px-4 py-3 text-center">Release Date</th>
-                                    <th class="px-4 py-3 text-center">Show Time</th>
-                                    <th class="px-4 py-3 text-center">Ticket Price</th>
-                                    <th class="px-4 py-3 text-center">Available Seats</th>
-                                    <th class="px-4 py-3 text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-700">
-                                @forelse ($movies as $ticket)
-                                    <tr class="hover:bg-black/20">
-                                        <td class="px-4 py-3">
-                                            <img src="{{ asset('/storage/movies/' . $ticket->poster) }}"
-                                                class="rounded-lg w-32">
-                                        </td>
-                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->movie_title }}</td>
-                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->description }}</td>
-                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->genre }}</td>
-                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->release_date }}</td>
-                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->show_time }}</td>
-                                        <td class="px-4 py-3 text-center text-xs">
-                                            {{ 'Rp ' . number_format($ticket->price, 2, ',', '.') }}
-                                        </td>
-                                        <td class="px-4 py-3 text-center text-xs">{{ $ticket->available_seats }}</td>
-                                        <td class="px-4 py-3 text-center text-xs">
-                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                action="{{ route('movies.destroy', $ticket->id) }}" method="POST">
-                                                <a href="{{ route('movies.show', $ticket->id) }}"
-                                                    class="inline-block px-3 py-1 bg-gray-800 text-white rounded hover:bg-gray-700 mb-1">Show</a>
-                                                <a href="{{ route('movies.edit', $ticket->id) }}"
-                                                    class="inline-block px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 mb-1">Edit</a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="9" class="px-4 py-3 text-center text-xs">
-                                            <div class="bg-red-500/20 text-red-200 p-3 rounded-lg">
-                                                Movie data is not yet available.
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="mt-4">
-                        {{ $movies->links() }}
-                    </div>
+                    @include('partials.table', [
+                        'data' => $movies,
+                        'columns' => [
+                            ['label' => 'Poster', 'field' => 'poster', 'isImage' => true],
+                            ['label' => 'Movie Title', 'field' => 'movie_title'],
+                            ['label' => 'Description', 'field' => 'description'],
+                            ['label' => 'Genre', 'field' => 'genre'],
+                            ['label' => 'Release Date', 'field' => 'release_date'],
+                            ['label' => 'Show Time', 'field' => 'show_time'],
+                            ['label' => 'Ticket Price', 'field' => 'price'],
+                            ['label' => 'Available Seats', 'field' => 'available_seats'],
+                        ],
+                        'title' => 'Movie Data',
+                        'routePrefix' => 'movies',
+                    ])
                 </div>
             </div>
         </main>

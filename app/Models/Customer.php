@@ -15,11 +15,11 @@ class Customer extends Model
      * @var array
      */
     protected $fillable = [
-        'movie_id',          // Foreign key untuk movie_tickets
-        'show_time',          // Jam tayang
-        'ticket_quantity',    // Jumlah tiket
-        'customer_name',      // Nama pemesan
-        'customer_email',     // Email pemesan
+        'movie_id',
+        'show_time',
+        'ticket_quantity',
+        'customer_name',
+        'customer_email',
     ];
 
     /**

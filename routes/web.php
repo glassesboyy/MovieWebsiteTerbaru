@@ -5,9 +5,7 @@ use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 // Route untuk halaman utama (dapat diakses semua user)
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [MovieController::class, 'home'])->name('home');
 
 // Grup route untuk tamu (belum login)
 Route::middleware('guest')->group(function () {
@@ -23,9 +21,7 @@ Route::middleware('guest')->group(function () {
 // Grup route untuk user yang sudah login
 Route::middleware('auth')->group(function () {
     // Route Home setelah login
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
+    Route::get('/home', [MovieController::class, 'home'])->name('home'); // Menggunakan controller
 
     // Route Logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -45,5 +41,5 @@ Route::middleware('auth')->group(function () {
 
 // Route Error 404
 Route::fallback(function () {
-    return view('errors.404');
+    return response()->view('errors.404', [], 404);
 });
