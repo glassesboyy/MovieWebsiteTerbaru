@@ -50,7 +50,7 @@ class MovieController extends Controller
         // Store poster image if provided
         $posterPath = null;
         if ($request->hasFile('poster')) {
-            $posterPath = $request->file('poster')->store('posters', 'public');
+            $posterPath = $request->file('poster')->store('movies');
         }
 
         // Create the movie ticket
@@ -72,12 +72,12 @@ class MovieController extends Controller
         ]);
     }
 
-
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
+        // Find the movie ticket by ID
         $movieTicket = MovieTicket::find($id);
 
         if (!$movieTicket) {
@@ -134,11 +134,11 @@ class MovieController extends Controller
         $posterPath = $movieTicket->poster;
         if ($request->hasFile('poster')) {
             // Delete the old poster if it exists
-            if ($posterPath && file_exists(storage_path('app/public/' . $posterPath))) {
-                unlink(storage_path('app/public/' . $posterPath));
+            if ($posterPath && file_exists(storage_path('app/' . $posterPath))) {
+                unlink(storage_path('app/' . $posterPath));
             }
             // Store the new poster
-            $posterPath = $request->file('poster')->store('posters', 'public');
+            $posterPath = $request->file('poster')->store('movies');
         }
 
         // Update the movie ticket
@@ -160,34 +160,32 @@ class MovieController extends Controller
         ]);
     }
 
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-{
-    // Find the movie ticket to delete
-    $movieTicket = MovieTicket::find($id);
+    {
+        // Find the movie ticket to delete
+        $movieTicket = MovieTicket::find($id);
 
-    if (!$movieTicket) {
+        if (!$movieTicket) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Movie Ticket Not Found',
+            ]);
+        }
+
+        // Delete the poster if it exists
+        if ($movieTicket->poster && file_exists(storage_path('app/' . $movieTicket->poster))) {
+            unlink(storage_path('app/' . $movieTicket->poster));
+        }
+
+        // Delete the movie ticket
+        $movieTicket->delete();
+
         return response()->json([
-            'success' => false,
-            'message' => 'Movie Ticket Not Found',
+            'success' => true,
+            'message' => 'Movie Ticket Deleted Successfully',
         ]);
     }
-
-    // Delete the poster if it exists
-    if ($movieTicket->poster && file_exists(storage_path('app/public/' . $movieTicket->poster))) {
-        unlink(storage_path('app/public/' . $movieTicket->poster));
-    }
-
-    // Delete the movie ticket
-    $movieTicket->delete();
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Movie Ticket Deleted Successfully',
-    ]);
-}
-
 }
