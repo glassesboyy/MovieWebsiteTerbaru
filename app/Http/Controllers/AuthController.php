@@ -35,7 +35,7 @@ class AuthController extends Controller
         $data = $request->only('email', 'password');
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
-            return redirect()->route('home'); // Ini sudah benar karena sesuai dengan route yang ada
+            return redirect()->route('home');
         } else {
             return back()->withErrors([
                 'message' => 'email atau password yang anda masukkan salah!',
