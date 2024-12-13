@@ -24,4 +24,5 @@ class MovieTicket extends Model
         'price',
         'available_seats',
     ];
+    
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MovieTicket;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -47,18 +48,15 @@ class MovieController extends Controller
             ]);
         }
 
-        // Store poster image if provided
-        $posterPath = null;
-        if ($request->hasFile('poster')) {
-            $posterPath = $request->file('poster')->store('movies');
-        }
+        $poster = $request->file('poster');
+        $poster->storeAs('movies', $poster->hashName());
 
         // Create the movie ticket
         $movieTicket = MovieTicket::create([
             'movie_title' => $request->movie_title,
             'description' => $request->description,
             'genre' => $request->genre,
-            'poster' => $posterPath,
+            'poster' => $poster->hashName(),
             'release_date' => $request->release_date,
             'show_time' => $request->show_time,
             'price' => $request->price,
@@ -176,9 +174,10 @@ class MovieController extends Controller
         }
 
         // Delete the poster if it exists
-        if ($movieTicket->poster && file_exists(storage_path('app/' . $movieTicket->poster))) {
-            unlink(storage_path('app/' . $movieTicket->poster));
-        }
+        $movie = MovieTicket::findOrFail($id);
+
+        Storage::delete('movies/' . $movie->poster);
+        $movie->delete();
 
         // Delete the movie ticket
         $movieTicket->delete();
