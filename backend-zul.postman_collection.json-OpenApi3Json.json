@@ -1,0 +1,275 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "backend-zul",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/movies": {
+      "get": {
+        "tags": [
+          "movie"
+        ],
+        "summary": "List Movie (Get All)",
+        "operationId": "ListMovie(GetAll)",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "movie"
+        ],
+        "summary": "Input (Create)",
+        "operationId": "Input(Create)",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "movie_title",
+                  "description",
+                  "genre",
+                  "poster",
+                  "release_date",
+                  "show_time",
+                  "price",
+                  "available_seats"
+                ],
+                "type": "object",
+                "properties": {
+                  "movie_title": {
+                    "type": "string",
+                    "example": "Contoh Movie Dari Postman 2"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Contoh Movie Dari Postman 2"
+                  },
+                  "genre": {
+                    "type": "string",
+                    "example": "Fantasy"
+                  },
+                  "poster": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "release_date": {
+                    "type": "string",
+                    "example": "2024-12-15"
+                  },
+                  "show_time": {
+                    "type": "string",
+                    "example": "13:45"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 5000
+                  },
+                  "available_seats": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 10
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/movies/{id}": {
+      "get": {
+        "tags": [
+          "movie"
+        ],
+        "summary": "Detail (Get by Id)",
+        "operationId": "Detail(GetbyId)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "movie"
+        ],
+        "summary": "Edit (Get by Id)",
+        "operationId": "Edit(GetbyId)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EditGetbyIdRequest"
+                  },
+                  {
+                    "example": {
+                      "movie_title": "Test Edit Id 15",
+                      "description": "Anjay Mabarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+                      "genre": "Action",
+                      "release_date": "2024-12-25",
+                      "show_time": "18:30",
+                      "price": 15.0,
+                      "available_seats": 100
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "movie_title": "Test Edit Id 15",
+                "description": "Anjay Mabarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+                "genre": "Action",
+                "release_date": "2024-12-25",
+                "show_time": "18:30",
+                "price": 15.0,
+                "available_seats": 100
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "movie"
+        ],
+        "summary": "Delete (Get by Id)",
+        "operationId": "Delete(GetbyId)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EditGetbyIdRequest": {
+        "title": "EditGetbyIdRequest",
+        "required": [
+          "movie_title",
+          "description",
+          "genre",
+          "release_date",
+          "show_time",
+          "price",
+          "available_seats"
+        ],
+        "type": "object",
+        "properties": {
+          "movie_title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "genre": {
+            "type": "string"
+          },
+          "release_date": {
+            "type": "string"
+          },
+          "show_time": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "available_seats": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "movie_title": "Test Edit Id 15",
+          "description": "Anjay Mabarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+          "genre": "Action",
+          "release_date": "2024-12-25",
+          "show_time": "18:30",
+          "price": 15.0,
+          "available_seats": 100
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "movie"
+    }
+  ]
+}
